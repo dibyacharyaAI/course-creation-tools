@@ -1,29 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  build-verification:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Verify Python Syntax
+        run: |
+          python -m compileall services shared scripts
+
       - name: Check for Secrets
         run: |
           set -e
 
-          # Scan code/config files for obvious hardcoded secrets,
-          # but ignore:
-          # - .github (workflows contain the search patterns)
+          # Scan code/config files for obvious hardcoded secrets.
+          # Ignore:
+          # - .github (workflows contain patterns like API_KEY=)
           # - node_modules
-          # - infra/docker-compose.yml (contains env placeholders like ${GEMINI_API_KEY})
-          # Also ignore lines that are clearly env placeholders: API_KEY=${...}
+          # Ignore env placeholders like: API_KEY=${SOMETHING}
 
           matches="$(grep -RIn \
             --exclude-dir=node_modules \
             --exclude-dir=.git \
             --exclude-dir=.github \
-            --exclude='infra/docker-compose.yml' \
             --include='*.py' --include='*.js' --include='*.ts' --include='*.yml' --include='*.yaml' \
             -E 'API_KEY=|SECRET=|TOKEN=|PASSWORD=|BEGIN (RSA|EC|OPENSSH) PRIVATE KEY' . \
             | grep -vE 'API_KEY=\$\{[^}]+\}' \
             || true)"
 
           if [ -n "$matches" ]; then
-            echo "Possible secret found:"
+            echo "Possible hardcoded secret found:"
             echo "$matches"
             exit 1
           fi
 
           echo "No hardcoded secrets detected (placeholders ignored)."
 
+  docker-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Docker compose build
+        run: |
+          docker compose -f infra/docker-compose.yml build
