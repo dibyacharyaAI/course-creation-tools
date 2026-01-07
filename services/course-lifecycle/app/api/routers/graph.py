@@ -59,6 +59,19 @@ async def update_course_graph(course_id: int, graph_update: CourseGraph, db: Ses
             detail=f"Version Conflict. Server: {current_version}, Client: {graph_update.version}. Refresh and try again."
         )
 
+    # Validate graph before saving (P1 requirement)
+    validator = GraphValidator(graph_update.model_dump(mode='json'))
+    report = validator.validate()
+    if not report.valid:
+        raise HTTPException(
+            status_code=422,
+            detail={
+                "message": "Graph validation failed",
+                "errors": [e.dict() for e in report.errors],
+                "warnings": [w.dict() for w in report.warnings]
+            }
+        )
+    
     new_version = current_version + 1
     
     graph_update.version = new_version
@@ -129,7 +142,7 @@ async def approve_topic_in_graph(
     course_id: int, 
     topic_id: str, 
     approval: ApprovalStatus, 
-    expected_version: Optional[int] = None,
+    client_version: Optional[int] = None,
     db: Session = Depends(get_db)
 ):
     """Approve/Reject Topic in Graph (Source of Truth) & Sync"""
@@ -142,23 +155,11 @@ async def approve_topic_in_graph(
 
     # Optimistic Locking
     current_version = course.course_graph_version or 1
-    if expected_version and expected_version != current_version:
+    if client_version and client_version != current_version:
         raise HTTPException(
             status_code=409, 
-            detail=f"Version Conflict. Server: {current_version}, Client: {expected_version}. Refresh required."
+            detail=f"Version Conflict. Server: {current_version}, Client: {client_version}. Refresh required."
         )
-          
-    # Optimistic Locking
-    current_version = course.course_graph_version or 1
-    # expected_version is passed as query param, but FastAPI makes it tricky to add to existing model body endpoint without changing signature.
-    # The function signature was: async def approve_topic_in_graph(..., approval: ApprovalStatus, ...)
-    # I should add expected_version: int as query param default=None?
-    # User Requirement: "Ensure request includes the latest version". strict.
-    
-    # Wait, I can't add logic here if I don't change the signature. 
-    # I need to change the function signature in the ReplacementContent too.
-    # But I can't see the signature in this chunk range?
-    # Let's adjust the chunk to include signature.
 
     
     found = False
@@ -178,6 +179,19 @@ async def approve_topic_in_graph(
         
         if not found:
             raise HTTPException(status_code=404, detail="Topic not found in graph")
+            
+        # Validate graph before saving (P1 requirement)
+        validator = GraphValidator(graph.model_dump(mode='json'))
+        report = validator.validate()
+        if not report.valid:
+            raise HTTPException(
+                status_code=422,
+                detail={
+                    "message": "Graph validation failed after approval",
+                    "errors": [e.dict() for e in report.errors],
+                    "warnings": [w.dict() for w in report.warnings]
+                }
+            )
             
         graph.version += 1
         course.course_graph = graph.model_dump(mode='json')
@@ -223,7 +237,7 @@ async def patch_slide_node(
     topic_id: str, 
     slide_id: str, 
     update: SlideUpdateRequest, 
-    expected_version: Optional[int] = None,
+    client_version: Optional[int] = None,
     db: Session = Depends(get_db)
 ):
     """Granular Slide Edit (Graph SoT)"""
@@ -233,10 +247,10 @@ async def patch_slide_node(
     
     # Optimistic Locking
     current_version = course.course_graph_version or 1
-    if expected_version and expected_version != current_version:
+    if client_version and client_version != current_version:
         raise HTTPException(
             status_code=409, 
-            detail=f"Version Conflict. Server: {current_version}, Client: {expected_version}. Refresh required."
+            detail=f"Version Conflict. Server: {current_version}, Client: {client_version}. Refresh required."
         )
          
     if update.illustration_prompt is not None and not update.illustration_prompt.strip():
@@ -272,6 +286,19 @@ async def patch_slide_node(
             
         if not found:
              raise HTTPException(status_code=404, detail="Slide not found")
+             
+        # Validate graph before saving (P1 requirement)
+        validator = GraphValidator(graph.model_dump(mode='json'))
+        report = validator.validate()
+        if not report.valid:
+            raise HTTPException(
+                status_code=422,
+                detail={
+                    "message": "Graph validation failed after slide update",
+                    "errors": [e.dict() for e in report.errors],
+                    "warnings": [w.dict() for w in report.warnings]
+                }
+            )
              
         graph.version += 1
         course.course_graph = graph.model_dump(mode='json')
@@ -311,7 +338,7 @@ async def get_course_kg(course_id: int, db: Session = Depends(get_db)):
 async def update_course_kg(
     course_id: int, 
     kg_update: KGModel, 
-    expected_version: Optional[int] = None,
+    client_version: Optional[int] = None,
     db: Session = Depends(get_db)
 ):
     """Update Graph Layer (Concepts & Relations)"""
@@ -324,10 +351,10 @@ async def update_course_kg(
 
     # Optimistic Locking
     current_version = course.course_graph_version or 1
-    if expected_version and expected_version != current_version:
+    if client_version and client_version != current_version:
         raise HTTPException(
             status_code=409, 
-            detail=f"Version Conflict. Server: {current_version}, Client: {expected_version}. Refresh required."
+            detail=f"Version Conflict. Server: {current_version}, Client: {client_version}. Refresh required."
         )
          
     try:
@@ -335,6 +362,19 @@ async def update_course_kg(
         graph.concepts = kg_update.concepts
         graph.relations = kg_update.relations
         graph.version += 1
+        
+        # Validate graph before saving (P1 requirement)
+        validator = GraphValidator(graph.model_dump(mode='json'))
+        report = validator.validate()
+        if not report.valid:
+            raise HTTPException(
+                status_code=422,
+                detail={
+                    "message": "Graph validation failed after KG update",
+                    "errors": [e.dict() for e in report.errors],
+                    "warnings": [w.dict() for w in report.warnings]
+                }
+            )
         
         course.course_graph = graph.model_dump(mode='json')
         course.course_graph_version = graph.version

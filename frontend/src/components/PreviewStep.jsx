@@ -1,3 +1,8 @@
+/**
+ * @deprecated This component is not used in the current KG-based flow.
+ * It calls legacy endpoint /ppt/approve which does not exist.
+ * Use Step6TopicQueue with KG-based approval endpoints instead.
+ */
 import React, { useEffect, useState } from 'react';
 import { lifecycleApi } from '../api/client';
 import { Check, X, Loader } from 'lucide-react';

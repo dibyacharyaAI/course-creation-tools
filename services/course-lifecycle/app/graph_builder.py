@@ -224,18 +224,59 @@ class GraphBuilder:
     def _merge_slides_content(self, job_slides: List[dict], existing_topic: dict, module_id: str, topic_id: str, stats: dict, job_version: int = 1) -> List[SubtopicNode]:
         """
         Merges Job Slides into Graph Structure, preserving existing IDs and edits.
-        Key = (topic_id, deterministic_seed) or existing_id check
+        Matching Strategy (in order):
+        1. Match by stable_key (GLOBAL) - primary identity
+        2. Match by content fingerprint (for non-edited slides) - robust fallback
+        3. Order-based matching ONLY as last resort for new slides
         """
-        # --- Stable Key Generation & Matching ---
-        # 1. Index LOCAL existing slides by `order` (Legacy Fallback)
+        import hashlib
+        
+        # --- Index existing slides by multiple strategies ---
+        # 1. By stable_key (already in global_slide_map, but index locally too for topic scope)
+        existing_slides_by_stable_key = {}
+        # 2. By content fingerprint (for non-edited slides only)
+        existing_slides_by_fingerprint = {}
+        # 3. By order (last resort, scoped to topic)
         existing_slides_by_order = {}
-        # We don't need local by_key map anymore, we have global_slide_map
+        
+        def _normalize_content(text):
+            """Normalize text for fingerprinting"""
+            return str(text).strip().lower() if text else ""
+        
+        def _compute_fingerprint(slide):
+            """Compute content fingerprint: title + bullets"""
+            title = _normalize_content(slide.get("title", ""))
+            bullets = slide.get("bullets", [])
+            bullets_str = "|".join([_normalize_content(b) for b in bullets])
+            content_str = f"{title}|{bullets_str}"
+            return hashlib.sha1(content_str.encode()).hexdigest()
         
         if existing_topic:
             for sub in existing_topic.get("children", []):
                 for s in sub.get("children", []):
+                    # Index by stable_key
+                    tags = s.get("tags", {})
+                    s_key = tags.get("stable_key")
+                    if s_key:
+                        if isinstance(s_key, list): s_key = s_key[0]
+                        existing_slides_by_stable_key[str(s_key)] = s
+                    
+                    # Index by fingerprint (only for non-edited slides)
+                    edited_flag = tags.get("edited_by_user")
+                    is_edited = False
+                    if str(edited_flag).lower() == "true" or (isinstance(edited_flag, list) and "true" in [str(x).lower() for x in edited_flag]):
+                        is_edited = True
+                    
+                    if not is_edited:
+                        fingerprint = _compute_fingerprint(s)
+                        # Only index if not already claimed (avoid duplicates)
+                        if fingerprint not in existing_slides_by_fingerprint:
+                            existing_slides_by_fingerprint[fingerprint] = s
+                    
+                    # Index by order (last resort)
                     o_key = s.get("order")
-                    existing_slides_by_order[o_key] = s
+                    if o_key is not None:
+                        existing_slides_by_order[o_key] = s
 
         # Group Job Slides by Subtopic
         grouped_slides = {} # subtopic_title -> list of slides
@@ -300,11 +341,19 @@ class GraphBuilder:
                 order = js.get("order", js.get("slide_no", 0))
                 stable_key = js.get("_stable_key")
                 
-                # --- MATCHING STRATEGY ---
-                # 1. Match by Stable Key (GLOBAL)
+                # --- MATCHING STRATEGY (Priority Order) ---
+                # 1. Match by Stable Key (GLOBAL) - Primary identity
                 matched_s = self.global_slide_map.get(stable_key)
+                if not matched_s:
+                    matched_s = existing_slides_by_stable_key.get(stable_key)
                 
-                # 2. Match by Order (FALLBACK - SCOPED TO TOPIC ONLY)
+                # 2. Match by Content Fingerprint (for non-edited slides) - Robust fallback
+                if not matched_s:
+                    js_fingerprint = _compute_fingerprint(js)
+                    matched_s = existing_slides_by_fingerprint.get(js_fingerprint)
+                
+                # 3. Match by Order (LAST RESORT - only if no content match found)
+                # This handles truly new slides that don't match any existing content
                 if not matched_s:
                     matched_s = existing_slides_by_order.get(order)
                 

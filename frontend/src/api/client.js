@@ -52,9 +52,9 @@ export const courseApi = {
     getGraph: (courseId) => lifecycleApi.get(`/courses/${courseId}/graph`),
     buildGraph: (courseId) => lifecycleApi.post(`/courses/${courseId}/graph/build`),
     updateGraph: (courseId, graphData) => lifecycleApi.patch(`/courses/${courseId}/graph`, graphData), // Full update
-    patchSlide: (courseId, topicId, slideId, updates, version) => lifecycleApi.patch(`/courses/${courseId}/topics/${topicId}/slides/${slideId}${version ? `?expected_version=${version}` : ''}`, updates),
+    patchSlide: (courseId, topicId, slideId, updates, version) => lifecycleApi.patch(`/courses/${courseId}/topics/${topicId}/slides/${slideId}${version ? `?client_version=${version}` : ''}`, updates),
     validateGraph: (courseId) => lifecycleApi.post(`/courses/${courseId}/graph/validate`),
-    approveTopic: (courseId, topicId, status, comment, version) => lifecycleApi.post(`/courses/${courseId}/topics/${topicId}/approve${version ? `?expected_version=${version}` : ''}`, { status, comment }),
+    approveTopic: (courseId, topicId, status, comment, version) => lifecycleApi.post(`/courses/${courseId}/topics/${topicId}/approve${version ? `?client_version=${version}` : ''}`, { status, comment }),
 
     // Export Endpoints
     exportPPT: (courseId, topicId) => lifecycleApi.post(`/courses/${courseId}/export/ppt?force=false${topicId ? `&topic_id=${topicId}` : ''}`),
@@ -65,7 +65,7 @@ export const courseApi = {
 
     // KG Layer
     getKG: (courseId) => lifecycleApi.get(`/courses/${courseId}/kg`),
-    updateKG: (courseId, kgModel, version) => lifecycleApi.patch(`/courses/${courseId}/kg${version ? `?expected_version=${version}` : ''}`, kgModel),
+    updateKG: (courseId, kgModel, version) => lifecycleApi.patch(`/courses/${courseId}/kg${version ? `?client_version=${version}` : ''}`, kgModel),
 };
 
 // Re-export specific functions for UI compatibility
@@ -84,7 +84,7 @@ export const generateTopicSlides = async (courseId, topicId) => {
 };
 
 export const patchTopicSlides = async (courseId, topicId, slidesWrapper) => lifecycleApi.patch(`/courses/${courseId}/topics/${topicId}/slides`, slidesWrapper);
-export const updateSlideNode = async (courseId, topicId, slideId, updates) => lifecycleApi.patch(`/courses/${courseId}/topics/${topicId}/slides/${slideId}`, updates);
+export const updateSlideNode = async (courseId, topicId, slideId, updates, version) => lifecycleApi.patch(`/courses/${courseId}/topics/${topicId}/slides/${slideId}${version ? `?client_version=${version}` : ''}`, updates);
 
 export const getTopicTelemetry = async (courseId, topicId) => lifecycleApi.get(`/courses/${courseId}/topics/${topicId}/telemetry`);
 

@@ -123,7 +123,7 @@ async def update_blueprint(course_id: int, req: BlueprintUpdateRequest, db: Sess
         logger.warning(f"Blocked blueprint update for Course {course_id}: KG already initialized.")
         raise HTTPException(
             status_code=409, 
-            detail="Blueprint is locked once KG is initialized. KG is source of truth."
+            detail="Blueprint edits disabled after KG initialization. Edit KG instead."
         )
 
     course.blueprint = req.blueprint

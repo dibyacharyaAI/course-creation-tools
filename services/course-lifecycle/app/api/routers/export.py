@@ -80,9 +80,9 @@ async def export_course_ppt(course_id: int, force: bool = False, topic_id: Optio
         output_path = out_dir / filename
         
         # Prepare Slide Plan with Title (Boss Requirement)
+        # KG SoT: Use course.title only, never fallback to blueprint
         slide_plan_dict = slide_plan.dict()
-        # Fallback title logic
-        course_title = course.title or (course.blueprint and course.blueprint.get("course_name")) or f"Course {course_id}"
+        course_title = course.title or f"Course {course_id}"
         slide_plan_dict["title"] = course_title
         
         payload = {
