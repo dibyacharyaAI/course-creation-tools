@@ -31,10 +31,12 @@ router = APIRouter()
 def has_initialized_kg(course_graph: Dict[str, Any] | None) -> bool:
     if not course_graph:
         return False
+    if not isinstance(course_graph, dict):
+        return False
 
     children = course_graph.get("children") or []
     for module in children:
-        if module.get("children"):
+        if isinstance(module, dict) and module.get("children"):
             return True
 
     return False
@@ -661,6 +663,5 @@ The AI Architect is requested to generate detailed slide content for the followi
 4. Generate strict JSON output for slides.
 """
     return {"prompt_text": prompt}
-
 
 
