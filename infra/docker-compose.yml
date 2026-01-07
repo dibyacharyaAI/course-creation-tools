@@ -1,0 +1,181 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: infra-postgres-1
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: obe_platform
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U user -d obe_platform" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app-network
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.3.0
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - app-network
+
+  kafka:
+    image: confluentinc/cp-kafka:7.3.0
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://kafka:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - app-network
+
+  course-lifecycle:
+    build:
+      context: ../
+      dockerfile: services/course-lifecycle/Dockerfile
+    # Ports removed for single-port gateway access
+    depends_on:
+      - postgres
+      - kafka
+    environment:
+      DATABASE_URL: postgresql://user:password@postgres:5432/obe_platform
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      RAG_INDEXER_URL: http://rag-indexer:8000
+    volumes:
+      - ../data:/app/data
+      - ../generated_data:/app/generated_data
+      - ../services/course-lifecycle/app:/app/app
+    networks:
+      - app-network
+
+  rag-indexer:
+    build:
+      context: ../
+      dockerfile: services/rag-indexer/Dockerfile
+    # Ports removed for single-port gateway access
+    environment:
+      DATABASE_URL: postgresql://user:password@postgres:5432/obe_platform
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+    volumes:
+      - ../data:/app/data
+      - ../generated_data:/app/generated_data
+    networks:
+      - app-network
+
+  ai-authoring:
+    build:
+      context: ../
+      dockerfile: services/ai-authoring/Dockerfile
+    depends_on:
+      - kafka
+      - postgres
+      - ppt-renderer
+
+    environment:
+      - DATABASE_URL=postgresql://user:password@postgres:5432/obe_platform
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - PPT_RENDERER_URL=http://ppt-renderer:3000/render
+      - RAG_INDEXER_URL=http://rag-indexer:8000
+    volumes:
+      - ../data:/app/data
+      - ../generated_data:/app/generated_data
+    networks:
+      - app-network
+
+  gateway:
+    image: nginx:alpine
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./gateway/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - frontend
+      - course-lifecycle
+      - ai-authoring
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    # ports: - Removed, accessed via gateway
+    #   - "3000:3000"
+    environment:
+      AI_AUTHORING_URL: http://ai-authoring:8000
+      COURSE_LIFECYCLE_URL: http://course-lifecycle:8000
+    volumes:
+      - ../frontend:/app
+      - /app/node_modules
+    depends_on:
+      - ai-authoring
+      - course-lifecycle
+    networks:
+      - app-network
+
+  assessment:
+    build:
+      context: ../services/assessment
+    # Ports removed
+    networks:
+      - app-network
+
+  telemetry-lrs:
+    build:
+      context: ../services/telemetry-lrs
+    # Ports removed
+    networks:
+      - app-network
+
+  hitl-gateway:
+    build:
+      context: ../services/hitl-gateway
+    # Ports removed
+    networks:
+      - app-network
+
+  exporter:
+    build:
+      context: ../
+      dockerfile: services/exporter/Dockerfile
+    container_name: infra-exporter-1
+    depends_on:
+      - postgres
+    # Ports removed
+    environment:
+      DATABASE_URL: postgresql://user:password@postgres:5432/obe_platform
+    volumes:
+      - ./exports:/app/exports
+    networks:
+      - app-network
+
+  ppt-renderer:
+    build:
+      context: ../services/ppt-renderer
+    # Ports removed
+    volumes:
+      - ../data:/app/data
+      - ../generated_data:/app/generated_data
+    networks:
+      - app-network
+
+networks:
+  default:
+    driver: bridge
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  zookeeper_data:
+  kafka_data:

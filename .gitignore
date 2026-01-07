@@ -1,0 +1,67 @@
+
+# Environment Variables
+.env
+.venv
+env/
+venv/
+*.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.db
+*.sqlite3
+test*.db
+
+# Logs
+*.log
+logs/
+infra/rag_logs.txt
+infra/error.log
+
+# Test
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+*.vsix
+
+# Mac
+.DS_Store
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Generated Outputs (Build artifacts)
+generated_data/
+exports/
+data/generated/
+infra/exports/
+services/exporter/exports/
+verify_unzip/
+response.json
+cleanup_patch.diff
+
+# Heavy Data (Externalized)
+data/raw/materials/
+data/raw/**/extracted_*/**
+*.zip
+*.pptx
+*.pdf
+
+# Exception for docs (optional, if you have docs pdfs)
+!docs/*.pdf
+
+# Node
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/build/

@@ -1,0 +1,592 @@
+{
+  "schema_version": "1.0",
+  "course": {
+    "course_code": "XCT3002",
+    "course_title": "Environmental Engineering",
+    "credits": 4,
+    "L-T-P": "3-1-0",
+    "prerequisite": "Nil",
+    "course_objective": "This course provides knowledge of water supply, sewerage, and wastewater systems. It emphasizes water quality characterization, design of water and wastewater treatment units, aerobic and anaerobic processes, and sludge management. Students will also learn to evaluate the environmental impacts of sewage discharge on land and water bodies."
+  },
+  "course_outcomes": [
+    {
+      "id": "CO1",
+      "text": "Comprehend the water supply and sewerage system"
+    },
+    {
+      "id": "CO2",
+      "text": "Characterize physical, chemical and biological parameters responsible for water pollution"
+    },
+    {
+      "id": "CO3",
+      "text": "Plan and design water treatment units"
+    },
+    {
+      "id": "CO4",
+      "text": "Plan and design aerobic wastewater treatment systems"
+    },
+    {
+      "id": "CO5",
+      "text": "Plan and design anaerobic wastewater and sludge treatment systems, and"
+    },
+    {
+      "id": "CO6",
+      "text": "Assess the impact of sewage discharge on land and water bodies."
+    }
+  ],
+  "modules": [
+    {
+      "module_id": "U1",
+      "unit_number": 1,
+      "module_name": "water supply and sewerage system",
+      "module_outcome": "water supply and sewerage system",
+      "duration_minutes": null,
+      "topics": [
+        {
+          "topic_id": "U1T1",
+          "topic_name": "Different types of water",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U1T2",
+          "topic_name": "Sources of water",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U1T3",
+          "topic_name": "Components of water supply system",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U1T4",
+          "topic_name": "Population forecasting",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U1T5",
+          "topic_name": "Estimation of water demand",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U1T6",
+          "topic_name": "Pipeline hydraulics",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U1T7",
+          "topic_name": "Components of sewerage network",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U1T8",
+          "topic_name": "hydraulics of sewers",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        }
+      ],
+      "references": []
+    },
+    {
+      "module_id": "U2",
+      "unit_number": 2,
+      "module_name": "Characterization of physical, chemical and biological parameters responsible for water pollution",
+      "module_outcome": "Characterization of physical, chemical and biological parameters responsible for water pollution",
+      "duration_minutes": null,
+      "topics": [
+        {
+          "topic_id": "U2T1",
+          "topic_name": "Physical",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U2T2",
+          "topic_name": "chemical and biological characteristics of water and wastewater and their significance",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U2T3",
+          "topic_name": "Water borne disease",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U2T4",
+          "topic_name": "Drinking water standards - IS 10500 2012",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        }
+      ],
+      "references": []
+    },
+    {
+      "module_id": "U3",
+      "unit_number": 3,
+      "module_name": "Planning and designing of water treatment units",
+      "module_outcome": "Planning and designing of water treatment units",
+      "duration_minutes": null,
+      "topics": [
+        {
+          "topic_id": "U3T1",
+          "topic_name": "Introduction to water treatment system",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U3T2",
+          "topic_name": "schematic of water treatment plant for groundwater and surface water",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U3T3",
+          "topic_name": "Aeration",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U3T4",
+          "topic_name": "coagulation",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U3T5",
+          "topic_name": "softening",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U3T6",
+          "topic_name": "lime-soda process and ion exchange process",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U3T7",
+          "topic_name": "flocculation",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U3T8",
+          "topic_name": "sedimentation",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U3T9",
+          "topic_name": "filtration – slow sand and rapid gravity",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U3T10",
+          "topic_name": "disinfection - chlorination and ozonation",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        }
+      ],
+      "references": []
+    },
+    {
+      "module_id": "U4",
+      "unit_number": 4,
+      "module_name": "Planning and designing of aerobic wastewater treatment systems",
+      "module_outcome": "Planning and designing of aerobic wastewater treatment systems",
+      "duration_minutes": null,
+      "topics": [
+        {
+          "topic_id": "U4T1",
+          "topic_name": "Wastewater Treatment Systems",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U4T2",
+          "topic_name": "Primary",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U4T3",
+          "topic_name": "Screening",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U4T4",
+          "topic_name": "grit chamber",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U4T5",
+          "topic_name": "skimming tanks",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U4T6",
+          "topic_name": "sedimentation",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U4T7",
+          "topic_name": "Secondary",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U4T8",
+          "topic_name": "Basics of microbiology",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U4T9",
+          "topic_name": "classification of secondary treatments",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U4T10",
+          "topic_name": "Aerobic Wastewater Treatment Systems",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U4T11",
+          "topic_name": "Suspended growth - Activated sludge process",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U4T12",
+          "topic_name": "oxidation pond",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U4T13",
+          "topic_name": "aerated lagoon",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U4T14",
+          "topic_name": "Attached growth - trickling filter",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U4T15",
+          "topic_name": "rotating biological contactor",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U4T16",
+          "topic_name": "Tertiary",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U4T17",
+          "topic_name": "Removal of nitrogen and phosphorus",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        }
+      ],
+      "references": []
+    },
+    {
+      "module_id": "U5",
+      "unit_number": 5,
+      "module_name": "Planning and designing of anaerobic wastewater and sludge treatment systems",
+      "module_outcome": "Planning and designing of anaerobic wastewater and sludge treatment systems",
+      "duration_minutes": null,
+      "topics": [
+        {
+          "topic_id": "U5T1",
+          "topic_name": "Wastewater treatment options for non-sewered areas",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U5T2",
+          "topic_name": "Septic tank",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U5T3",
+          "topic_name": "Imhoff tank and their design considerations",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U5T4",
+          "topic_name": "Sludge",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U5T5",
+          "topic_name": "Sludge characteristics",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U5T6",
+          "topic_name": "Sludge processing – thickening",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U5T7",
+          "topic_name": "digestion",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U5T8",
+          "topic_name": "disinfection",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U5T9",
+          "topic_name": "dewatering",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U5T10",
+          "topic_name": "Sludge digestion process",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U5T11",
+          "topic_name": "designing of sludge digestion tank",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        }
+      ],
+      "references": []
+    },
+    {
+      "module_id": "U6",
+      "unit_number": 6,
+      "module_name": "Assessing the impact of sewage discharge on land and water bodies",
+      "module_outcome": "Assessing the impact of sewage discharge on land and water bodies",
+      "duration_minutes": null,
+      "topics": [
+        {
+          "topic_id": "U6T1",
+          "topic_name": "Self-purification of rivers",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U6T2",
+          "topic_name": "oxygen sag curve",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U6T3",
+          "topic_name": "Streeter Phelps equation",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        },
+        {
+          "topic_id": "U6T4",
+          "topic_name": "Wastewater disposal standards",
+          "topic_outcome": "Not Provided",
+          "duration_minutes": null,
+          "bloom_override": null
+        }
+      ],
+      "references": []
+    }
+  ],
+  "bloom": {
+    "global": null,
+    "per_topic_overrides": {}
+  },
+  "constraints": {
+    "ppt": {
+      "min_slides_per_topic": 8,
+      "max_lines_per_slide": 12,
+      "max_words_per_line": 15,
+      "min_font_size": 18
+    }
+  },
+  "references": {
+    "course_level": [],
+    "module_level": {},
+    "topic_level": {}
+  },
+  "provenance": {
+    "syllabus_source": "repo_extracted/repo/data1/raw/syllabus/extracted/WILP Course Curriculam-2025/6th Civil/Env Engg XCT 3002.docx",
+    "syllabus_sha256": "1b4f4492febae89af8f84b502fb1095317ec2bee01c90d1bc7e3237f60b3f200"
+  },
+  "textbooks": [
+    {
+      "raw": "S.K. Garg, Environmental Engineering (Vol. I) Water Supply Engineering, Khanna Publishers, 36th Edition, 2022, ISBN-13: 978-81-7409-120-8.",
+      "authors": "S.K. Garg",
+      "title": "Environmental Engineering (Vol. I) Water Supply Engineering",
+      "publisher": "Khanna Publishers",
+      "edition": "36th Edition",
+      "year": 2022,
+      "isbn": "978-81-7409-120-8"
+    },
+    {
+      "raw": "S.K. Garg, Environmental Engineering (Vol. II) Sewage Disposal and Air Pollution Engineering, Khanna Publishers, 42nd Edition, 2022, ISBN-13: 978-81-7409-230-4.",
+      "authors": "S.K. Garg",
+      "title": "Environmental Engineering (Vol. II) Sewage Disposal and Air Pollution Engineering",
+      "publisher": "Khanna Publishers",
+      "edition": "42nd Edition",
+      "year": 2022,
+      "isbn": "978-81-7409-230-4"
+    },
+    {
+      "raw": "H.S. Peavy, D.R. Rowe, & G. Tchobanoglous, Environmental Engineering, McGraw Hill, 7th Edition, 2017, ISBN-13: 978-9351340263.",
+      "authors": "H.S. Peavy",
+      "title": "D.R. Rowe",
+      "publisher": "& G. Tchobanoglous",
+      "edition": "7th Edition",
+      "year": 2017,
+      "isbn": "978-9351340263"
+    }
+  ],
+  "reference_books": [
+    {
+      "raw": "Metcalf & Eddy, Inc., Wastewater Engineering: Treatment and Reuse, Tata McGraw- Hill, 5th Edition, New Delhi, 2017, ISBN-10: 9780070495395.",
+      "authors": "Metcalf & Eddy",
+      "title": "Inc.",
+      "publisher": "Wastewater Engineering: Treatment and Reuse",
+      "edition": "5th Edition",
+      "year": 2017,
+      "isbn": "9780070495395"
+    },
+    {
+      "raw": "L.D. Benefield, J.F. Judkins and B.L. Weand, Process chemistry for water and wastewater treatment, Prentice - Hall Series, 1st Edition, 1981.",
+      "authors": "L.D. Benefield",
+      "title": "J.F. Judkins and B.L. Weand",
+      "publisher": "Process chemistry for water and wastewater treatment",
+      "edition": "1st Edition",
+      "year": 1981,
+      "isbn": null
+    },
+    {
+      "raw": "M.L. Davis & D.A. Cornwell, Introduction to Environmental Engineering, Tata McGraw Hill, 4th Edition, 2010.",
+      "authors": "M.L. Davis & D.A. Cornwell",
+      "title": "Introduction to Environmental Engineering",
+      "publisher": "Tata McGraw Hill",
+      "edition": "4th Edition",
+      "year": 2010,
+      "isbn": null
+    },
+    {
+      "raw": "T.D. Reynolds & P.A. Richards, Unit Operations and Processes in Environmental Engineering, PWS Publishing Company, Cengage Learning, 2nd Edition, 2009.",
+      "authors": "T.D. Reynolds & P.A. Richards",
+      "title": "Unit Operations and Processes in Environmental Engineering",
+      "publisher": "PWS Publishing Company",
+      "edition": "2nd Edition",
+      "year": 2009,
+      "isbn": null
+    },
+    {
+      "raw": "CPHEEO, Manual on water supply and Treatment, Ministry of Urban Development, GoI, New Delhi, 1999.",
+      "authors": "CPHEEO",
+      "title": "Manual on water supply and Treatment",
+      "publisher": "Ministry of Urban Development",
+      "edition": null,
+      "year": 1999,
+      "isbn": null
+    },
+    {
+      "raw": "CPHEEO, Manual on sewerage and sewage treatment systems, Ministry of Urban Development, GoI, New Delhi, 2013.",
+      "authors": "CPHEEO",
+      "title": "Manual on sewerage and sewage treatment systems",
+      "publisher": "Ministry of Urban Development",
+      "edition": null,
+      "year": 2013,
+      "isbn": null
+    },
+    {
+      "raw": "CPHEEO, Manual on municipal solid waste management, Ministry of Urban Development, GoI, New Delhi, 2016.",
+      "authors": "CPHEEO",
+      "title": "Manual on municipal solid waste management",
+      "publisher": "Ministry of Urban Development",
+      "edition": null,
+      "year": 2016,
+      "isbn": null
+    }
+  ]
+}

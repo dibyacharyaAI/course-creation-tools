@@ -1,0 +1,9 @@
+{
+  "generated_at": "2025-12-15T09:49:12.899430",
+  "syllabus_templates": 32,
+  "notes": [
+    "Generated manifests/syllabus_catalog_index.json from catalog/syllabi tree",
+    "Added template_id/display_label fields for unique dropdown selection (handles duplicate course codes).",
+    "courses_manifest.csv enriched with template_id + syllabus_path_catalog + syllabus_exists"
+  ]
+}

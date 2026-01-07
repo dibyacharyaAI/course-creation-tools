@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+google-generativeai
+sqlalchemy
+psycopg2-binary
+pgvector
+pydantic
+python-dotenv
+aiokafka
+pydantic-settings
+python-multipart
+pypdf
+python-pptx

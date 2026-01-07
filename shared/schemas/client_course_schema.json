@@ -1,0 +1,116 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ClientCourse",
+  "description": "Canonical source-of-truth for course data",
+  "type": "object",
+  "required": [
+    "course_identity",
+    "pos",
+    "cos",
+    "co_po_map",
+    "modules",
+    "time_distribution"
+  ],
+  "properties": {
+    "course_identity": {
+      "type": "object",
+      "required": ["program", "course_code", "course_title", "credits", "ncrf_level", "category"],
+      "properties": {
+        "program": { "type": "string" },
+        "course_code": { "type": "string" },
+        "course_title": { "type": "string" },
+        "credits": {
+          "type": "object",
+          "required": ["l", "t", "p", "total"],
+          "properties": {
+            "l": { "type": "integer", "minimum": 0 },
+            "t": { "type": "integer", "minimum": 0 },
+            "p": { "type": "integer", "minimum": 0 },
+            "total": { "type": "integer", "minimum": 1 }
+          }
+        },
+        "ncrf_level": { "type": "string" },
+        "category": { "type": "string" }
+      }
+    },
+    "pos": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "items": { "type": "string" },
+      "description": "Program Outcomes (exactly 12)"
+    },
+    "cos": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "required": ["id", "description", "bloom_level", "ncrf_level", "employability"],
+        "properties": {
+          "id": { "type": "string" },
+          "description": { "type": "string" },
+          "bloom_level": { "type": "string", "enum": ["Remember", "Understand", "Apply", "Analyze", "Evaluate", "Create"] },
+          "ncrf_level": { "type": "string" },
+          "employability": { "type": "string" }
+        }
+      }
+    },
+    "co_po_map": {
+      "type": "array",
+      "description": "Matrix rows (one per CO)",
+      "items": {
+        "type": "array",
+        "items": { "type": "integer", "minimum": 0, "maximum": 3 },
+        "minItems": 12,
+        "maxItems": 12
+      }
+    },
+    "modules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "ncrf_level", "mos", "mo_co_map"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "ncrf_level": { "type": "string" },
+          "mos": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "title", "topics", "bloom_level", "employability"],
+              "properties": {
+                "id": { "type": "string" },
+                "title": { "type": "string" },
+                "topics": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                },
+                "bloom_level": { "type": "string" },
+                "employability": { "type": "string" }
+              }
+            }
+          },
+          "mo_co_map": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": { "type": "integer", "minimum": 0, "maximum": 3 }
+            }
+          }
+        }
+      }
+    },
+    "time_distribution": {
+      "type": "object",
+      "required": ["module_weights"],
+      "properties": {
+        "module_weights": {
+          "type": "array",
+          "items": { "type": "number", "minimum": 0, "maximum": 1 }
+        }
+      }
+    }
+  }
+}

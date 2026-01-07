@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-verification:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Verify Python Syntax
+      run: |
+        python -m compileall services/
+        
+    - name: Check for Secrets
+      run: |
+        if grep -r "API_KEY=" . --include=*.{py,js,ts,yml} --exclude-dir=node_modules; then
+          echo "Possible secret found!"
+          exit 1
+        fi
+
+  # Docker build check (optional - depends on runners)
+  docker-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build Course Lifecycle Service
+      run: docker build -f services/course-lifecycle/Dockerfile .

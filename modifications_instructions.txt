@@ -1,0 +1,116 @@
+
+The following modifications need to be applied to the Antigravity course creation codebase to satisfy the client requirements described in the previous audit.  Each numbered section corresponds to a specific part of the system and lists the files that must be updated and the logic that should be added or changed.  The paths referenced below are relative to the root of the repository (for example `services/course-lifecycle/app/generators.py`).
+
+## 0. New deck mode: `CLIENT_PRODUCTION`
+
+*File to modify:* `services/course‑lifecycle/app/generators.py`
+
+Add a new constant named `CLIENT_PRODUCTION` and extend the existing outline/deck generation logic to recognise this mode.  When the generation spec specifies `deck_mode="CLIENT_PRODUCTION"` the generator should compute the required number of slides using the following deterministic rules:
+
+  - Each topic must have **at least 8 slides**.
+  - Each sub‑topic must appear on **at least one slide**.
+  - The number of slides for a topic should be the **maximum of 8 and the number of minutes allocated to that topic** (because the client specification requires roughly one slide per minute of teaching time).
+  - The total number of slides across all topics should roughly match the total course duration (e.g. 60 slides for 60 minutes).
+  - In this mode, the generator should not place multiple topics on one slide; instead each slide should be dedicated to a single sub‑topic.
+
+Update the signature of the outline generation function to accept the new `CLIENT_PRODUCTION` mode and branch accordingly.  Leave the existing behaviour for `QUICK_DECK` and `FULL_COVERAGE` untouched.
+
+## 1. Extend the blueprint schema
+
+*Files to modify:* `services/course‑lifecycle/app/syllabus_extractor.py`, `services/course‑lifecycle/app/models.py`, `data1/templates/blueprint_template.json` and any contracts or schemas defined in `services/course‑lifecycle/app/contracts.py`.
+
+Extend the blueprint and course data models to capture the additional metadata required by the client:
+
+  - **course_identity**: semester duration, credits, hours, course category, etc.
+  - **pos**: an array of 12 programme outcome statements (PO/PLO).
+  - **clos**: up to 6 course learning outcome objects, each containing Bloom taxonomy levels (up to 3), an NCrF depth value and an employability skills code (ES1–ES10).
+  - **clo_po_matrix**: a mapping or matrix that indicates which CLOs contribute to each PO.
+  - **modules**: each module descriptor should include the module outcome (MO), its own NCrF level, the ideal time required and a mapping to course outcomes.
+  - **topics**: each topic must include a list of sub‑topics, a set of pedagogy flags (eLecture, eContent, discussion, live, industry project, etc.), and a list of reference links (PDFs, YouTube, blogs) that serve as evidence.
+
+Update the JSON template in `data1/templates/blueprint_template.json` to reflect these new fields so that the frontend wizard can generate a blueprint with the correct structure.  Adjust any pydantic or dataclass models in `models.py` and related contracts so that the new fields are persisted to the database and validated.
+
+## 2. Front‑end form updates
+
+*Files to modify:* the React components under `frontend/src/components/steps`.
+
+Enhance the blueprint creation steps to capture the additional fields introduced in the extended schema.  In particular:
+
+  - In Step 2 (Blueprint), add tabs or sections for **Course Identity**, **PO/PLO Editor**, **CLO Editor with CLO‑PO mapping matrix**, **Module Descriptor and MO–CO mapping**, and a **Topic Table** that includes sub‑topics, pedagogy flags and reference links.
+  - Ensure that the values entered by the user populate the extended blueprint JSON structure.
+  - In Step 4 (Specs) allow selection of the new `CLIENT_PRODUCTION` deck mode.
+
+These UI changes will allow users to input all client‑required metadata before generation.
+
+## 3. Slide budgeting logic rewrite
+
+*File to modify:* `services/course‑lifecycle/app/generators.py`
+
+Remove the hard‑coded `MAX_TOPICS_PER_SLIDE = 2` and `minutes_allocated = 15` values when the deck mode is `CLIENT_PRODUCTION`.  Instead use the minutes allocated to each topic from the generation spec (or from the module descriptor) and compute the number of slides per topic as described in section **0**.  For preview modes (`QUICK_DECK` and `FULL_COVERAGE`) retain the existing logic (e.g. two topics per slide and a default of 15 minutes per slide).
+
+## 4. Evidence retrieval and mapping fixes
+
+*File to modify:* `services/course‑lifecycle/app/generators.py`
+
+When retrieving evidence from the RAG indexer, use the `snippet` field returned by the `/retrieve` endpoint rather than a non‑existent `text` field.  For each citation, store the `source_id`, a `locator` (such as the page number or time stamp) and the `snippet` itself.  This ensures that the verifier can cross‑check claims against the actual evidence.  Additionally, do not duplicate the same evidence entry multiple times for a single claim.
+
+## 5. Prompt builder enhancements
+
+*File to modify:* `services/course‑lifecycle/app/prompt_engine.py`
+
+When the deck mode is `CLIENT_PRODUCTION`, inject hard constraints into the prompt template so that the language model knows about the client formatting rules.  These rules include:
+
+  - Maximum 12 lines per slide.
+  - Maximum 15 words per line.
+  - Minimum font size of 18 points.
+  - Every slide must include an illustration or figure (add an `illustration_prompt` field in the intermediate JSON if needed).
+  - Abstain or mark as “draft” if evidence is missing for a claim.
+
+These constraints must be clearly articulated in the prompt so that the model produces output compliant with the client’s requirements.
+
+## 6. Verifier rule updates
+
+*File to modify:* `services/course‑lifecycle/app/verifier.py`
+
+Extend the verifier’s checks when running in `STRICT` mode to enforce the client’s rules:
+
+  - Ensure that each topic has at least eight slides and that each sub‑topic appears on at least one slide.
+  - Verify that the total number of slides roughly matches the total course duration (1 slide per minute).
+  - Confirm that no slide exceeds 12 lines or 15 words per line and that the minimum font size is 18 points.
+  - Check that each slide includes an `illustration_prompt` or that an illustration has been embedded.
+  - Ensure that every claim has at least one citation and that each citation refers to an entry in `evidence_map_ref` with a non‑empty snippet.
+  - If any of these conditions fail, the verifier should return a failure status so that export is blocked until the issues are corrected.
+
+## 7. PPTX generation enhancements
+
+*File to modify:* `services/exporter/app/pptx_generator.py`
+
+Update the default font size to **18 points** to meet the client’s minimum size requirement.  Enforce no more than 12 lines per slide and 15 words per line by truncating or wrapping content appropriately.  For each slide, insert a placeholder (or actual graphic if available) for an illustration; if the generation pipeline provides an image URL or file, embed it, otherwise leave a placeholder box for later insertion.
+
+## 8. Topic‑wise ZIP export
+
+*Files to modify/add:* `services/exporter/app/main.py` and potentially new helper modules under `services/exporter/app`.
+
+Implement a new endpoint, e.g. `POST /export/pack/{course_id}`, which collects the generated content and bundles it into a ZIP archive.  This archive should contain topic‑wise PPTX files (one per topic), module mind maps (in Markdown or Mermaid format), case studies (at least three per course), lists of web resources, discussion forum prompts and self‑study packs.  The exporter should create this ZIP file in a consistent location (such as an `exports/` directory) and return a link or file identifier for download.
+
+## 9. RAG and grounding correctness
+
+*File to modify:* `services/course‑lifecycle/app/verifier.py`
+
+Do not trust the language model’s self‑reported `overall_status` for grounding.  Instead, implement a check that a claim is grounded only if it contains at least one citation id, that the citation id exists in `evidence_map_ref`, and that the referenced evidence contains a non‑empty snippet.  If these conditions are not met, mark the slide as ungrounded in `STRICT` mode.
+
+## 10. Exporter‑validator implementation
+
+*File to modify:* `services/exporter‑validator/app/main.py`
+
+Implement a real validation service that runs after content generation but before export.  This service should call the verifier to ensure that all client rules are satisfied, check that SCORM or xAPI packages are valid, and verify that all references and assets are accessible.  If validation fails, return detailed reasons so the user can address them.
+
+## 11. Tests and proof scripts
+
+Add automated tests (e.g. shell scripts or Python unit tests in a `tests/` directory) that assert the behaviour of the new `CLIENT_PRODUCTION` mode.  Example tests include:
+
+  - `test_client_mode_outline.sh` should verify that the outline generator produces at least as many slides as the total course duration and that each topic has at least eight slides.
+  - `test_verifier_client_rules.sh` should verify that the verifier fails when a slide lacks an illustration, when font sizes are below 18 points, or when slides exceed the maximum number of lines or words.
+  - `test_export_pack.sh` should call the new export pack endpoint and ensure that a ZIP file is produced containing the expected topic‑wise PPTX files and additional artefacts.
+
+These tests will help ensure that the modifications satisfy the client’s requirements and prevent regressions in the future.

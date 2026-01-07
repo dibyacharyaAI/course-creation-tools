@@ -1,0 +1,18 @@
+{
+  "generated_at": "2025-12-14T19:33:10.675545",
+  "raw_zips": [
+    {
+      "name": "all_subject_syllabus.zip",
+      "sha256": "8536fd5fd69bb49915ea122ace474e981a9757d0c32b82a1c37556852c1c9796"
+    },
+    {
+      "name": "Fwd__Course_Materials_-_Environmental_Engineering_(XCT_3002).zip",
+      "sha256": "55ff4d5ac08ad85f9469c24b5346e6c24b9d0fa8b153f882fa8325d0f18e9529"
+    },
+    {
+      "name": "Fwd__Course_Materials_-_Environmental_Engineering_(XCT_3002)_-_Post_Mid-sem.zip",
+      "sha256": "16bfa7e8b02af6aa526098f686970fd5e6247dc649ad5f0340a7780758bf2740"
+    }
+  ],
+  "notes": "raw/ contains exact client data (zips + extracted). catalog/ contains normalized paths for direct project use. manifests/ list all files and mappings."
+}

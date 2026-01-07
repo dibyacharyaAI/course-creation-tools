@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ course.title }} - Student Notes</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+            @bottom-center {
+                content: "Page " counter(page);
+            }
+        }
+        body {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        .cover-page {
+            text-align: center;
+            padding-top: 5cm;
+            page-break-after: always;
+        }
+        .cover-title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .cover-subtitle {
+            font-size: 24px;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+        }
+        .module-header {
+            background-color: #ecf0f1;
+            padding: 10px;
+            border-left: 5px solid #3498db;
+            margin-top: 30px;
+            page-break-before: always;
+        }
+        .lesson {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        .lesson-meta {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+        .co-tag {
+            background-color: #e67e22;
+            color: white;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 10px;
+        }
+        .bloom-tag {
+            background-color: #27ae60;
+            color: white;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cover Page -->
+    <div class="cover-page">
+        <div class="cover-title">{{ course.title }}</div>
+        <div class="cover-subtitle">{{ course.programme }} - {{ course.semester }}</div>
+        <div>Course Code: {{ course.course_code }}</div>
+        <div style="margin-top: 50px;">
+            <strong>Student Notes</strong>
+        </div>
+    </div>
+
+    <!-- Table of Contents -->
+    <h2>Table of Contents</h2>
+    <ul>
+    {% for module in modules %}
+        <li>
+            <strong>{{ module.title }}</strong>
+            <ul>
+            {% for lesson in module.lessons %}
+                <li>{{ lesson.title }}</li>
+            {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+    </ul>
+
+    <!-- Content -->
+    {% for module in modules %}
+        <div class="module-header">
+            <h2>{{ module.code }}: {{ module.title }}</h2>
+            <p>{{ module.description }}</p>
+        </div>
+
+        {% for lesson in module.lessons %}
+            <div class="lesson">
+                <h3>{{ lesson.code }}: {{ lesson.title }}</h3>
+                <div class="lesson-meta">
+                    {% if lesson.co_mapping %}
+                        Mapped to: 
+                        {% for co in lesson.co_mapping %}
+                            <span class="co-tag">{{ co }}</span>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    {% if lesson.bloom_level %}
+                        | Bloom Level: <span class="bloom-tag">{{ lesson.bloom_level }}</span>
+                    {% endif %}
+                </div>
+                
+                <div class="lesson-body">
+                    {{ lesson.body_html | safe }}
+                </div>
+            </div>
+        {% endfor %}
+    {% endfor %}
+</body>
+</html>

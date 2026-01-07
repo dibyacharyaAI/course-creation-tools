@@ -1,0 +1,225 @@
+{
+  "templates": [],
+  "syllabi": [
+    {
+      "id": "raw-Concrete_Technology_XCT1007",
+      "name": "Concrete Technology (XCT1007)",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/1st sem/Concrete Technology_XCT1007.docx",
+      "type": "document"
+    },
+    {
+      "id": "raw-EM_XCT10003",
+      "name": "Engineering Mechanics (EM_XCT10003)",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/1st sem/EM_XCT10003.docx",
+      "type": "document"
+    },
+    {
+      "id": "raw-FMM_Syllabus-XCT1005",
+      "name": "Fluid Mechanics (XCT1005)",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/1st sem/FMM Syllabus-XCT1005.docx",
+      "type": "document"
+    },
+    {
+      "id": "raw-FPS_XCT_1001",
+      "name": "Fluid Power Systems (XCT1001)",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/1st sem/FPS_XCT 1001.docx",
+      "type": "document"
+    },
+    {
+      "id": "raw-FRRS_XCT3008",
+      "name": "FRRS_XCT3008",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/6th Civil/FRRS_XCT3008.docx",
+      "type": "document",
+      "course_code": "FRRS_XCT3008"
+    },
+    {
+      "id": "raw-STRUCTURAL_DESIGN-_XCT_3006",
+      "name": "STRUCTURAL DESIGN- XCT 3006",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/6th Civil/STRUCTURAL DESIGN- XCT 3006.docx",
+      "type": "document",
+      "course_code": "3006"
+    },
+    {
+      "id": "raw-Env_Engg_XCT_3002",
+      "name": "Env Engg XCT 3002",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/6th Civil/Env Engg XCT 3002.docx",
+      "type": "document",
+      "course_code": "3002"
+    },
+    {
+      "id": "raw-WILP_Irrigation_Engineering_-XCT_3004",
+      "name": "WILP Irrigation Engineering -XCT 3004",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/6th Civil/WILP Irrigation Engineering -XCT 3004.docx",
+      "type": "document",
+      "course_code": "3004"
+    },
+    {
+      "id": "raw-MCT-XCT_3011",
+      "name": "MCT-XCT 3011",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/5th Mechanical/MCT-XCT 3011.docx",
+      "type": "document",
+      "course_code": "3011"
+    },
+    {
+      "id": "raw-WTC_XCT_3009_WILP",
+      "name": "WTC_XCT 3009_WILP",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/5th Mechanical/WTC_XCT 3009_WILP.docx",
+      "type": "document",
+      "course_code": "3009_WILP"
+    },
+    {
+      "id": "raw-NDET-XCT3013",
+      "name": "NDET-XCT3013",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/5th Mechanical/NDET-XCT3013.docx",
+      "type": "document",
+      "course_code": "NDET-XCT3013"
+    },
+    {
+      "id": "raw-FACC-XCT_2007",
+      "name": "FACC-XCT 2007",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/3rd Sem/FACC-XCT 2007.docx",
+      "type": "document",
+      "course_code": "2007"
+    },
+    {
+      "id": "raw-BMEPC_XCT_2005",
+      "name": "BMEPC_XCT 2005",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/3rd Sem/BMEPC_XCT 2005.docx",
+      "type": "document",
+      "course_code": "2005"
+    },
+    {
+      "id": "raw-Construction_Equipment,_Plant_&_Machinery-XCT_2003",
+      "name": "Construction Equipment, Plant & Machinery-XCT 2003",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/3rd Sem/Construction Equipment, Plant & Machinery-XCT 2003.docx",
+      "type": "document",
+      "course_code": "2003"
+    },
+    {
+      "id": "raw-QACC-XCT_2001",
+      "name": "QACC-XCT 2001",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/3rd Sem/QACC-XCT 2001.docx",
+      "type": "document",
+      "course_code": "2001"
+    },
+    {
+      "id": "raw-GFE-XCT3005",
+      "name": "GFE-XCT3005",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/5th sem Civil/GFE-XCT3005.docx",
+      "type": "document",
+      "course_code": "GFE-XCT3005"
+    },
+    {
+      "id": "raw-Structural_Analysis-XCT3003",
+      "name": "Structural Analysis-XCT3003",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/5th sem Civil/Structural Analysis-XCT3003.docx",
+      "type": "document",
+      "course_code": "Analysis-XCT3003"
+    },
+    {
+      "id": "raw-Contract_laws_and_professional_Ethics-XCT_4003",
+      "name": "Contract laws and professional Ethics-XCT 4003",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/7th sem/Contract laws and professional Ethics-XCT 4003.docx",
+      "type": "document",
+      "course_code": "4003"
+    },
+    {
+      "id": "raw-SCM_-XCT4001",
+      "name": "SCM -XCT4001",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/7th sem/SCM -XCT4001.docx",
+      "type": "document",
+      "course_code": "-XCT4001"
+    },
+    {
+      "id": "raw-SURVEYING_AND_MATERIAL_HANDLING-XCT1006",
+      "name": "SURVEYING AND MATERIAL HANDLING-XCT1006",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/2nd Sem/SURVEYING AND MATERIAL HANDLING-XCT1006.docx",
+      "type": "document",
+      "course_code": "HANDLING-XCT1006"
+    },
+    {
+      "id": "raw-CPCM-_XCT_1004",
+      "name": "CPCM- XCT 1004",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/2nd Sem/CPCM- XCT 1004.docx",
+      "type": "document",
+      "course_code": "1004"
+    },
+    {
+      "id": "raw-MOS-_XCT_1008",
+      "name": "MOS- XCT 1008",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/2nd Sem/MOS- XCT 1008.docx",
+      "type": "document",
+      "course_code": "1008"
+    },
+    {
+      "id": "raw-SSCT-XCT1002",
+      "name": "SSCT-XCT1002",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/2nd Sem/SSCT-XCT1002.docx",
+      "type": "document",
+      "course_code": "SSCT-XCT1002"
+    },
+    {
+      "id": "raw-MP-XCT_3014",
+      "name": "MP-XCT 3014",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/6th Mechanical/MP-XCT 3014.docx",
+      "type": "document",
+      "course_code": "3014"
+    },
+    {
+      "id": "raw-Maintenance_Engineering_-XCT3016",
+      "name": "Maintenance Engineering -XCT3016",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/6th Mechanical/Maintenance Engineering -XCT3016.docx",
+      "type": "document",
+      "course_code": "-XCT3016"
+    },
+    {
+      "id": "raw-HVAC_SYSTEM_AND_THEIR_APPLICATION_-XCT_3012)",
+      "name": "HVAC SYSTEM AND THEIR APPLICATION -XCT 3012)",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/6th Mechanical/HVAC SYSTEM AND THEIR APPLICATION -XCT 3012).docx",
+      "type": "document",
+      "course_code": "3012)"
+    },
+    {
+      "id": "raw-HP_S_XCT_3010",
+      "name": "HP S_XCT 3010",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/6th Mechanical/HP S_XCT 3010.docx",
+      "type": "document",
+      "course_code": "3010"
+    },
+    {
+      "id": "raw-CSRM-XCT_2002",
+      "name": "CSRM-XCT 2002",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/4th sem/CSRM-XCT 2002.docx",
+      "type": "document",
+      "course_code": "2002"
+    },
+    {
+      "id": "raw-QSEC_XCT_2008",
+      "name": "QSEC XCT 2008",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/4th sem/QSEC XCT 2008.docx",
+      "type": "document",
+      "course_code": "2008"
+    },
+    {
+      "id": "raw-PCT___XCT_2004",
+      "name": "PCT   XCT 2004",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/4th sem/PCT   XCT 2004.docx",
+      "type": "document",
+      "course_code": "2004"
+    },
+    {
+      "id": "raw-Industrial_engg-XCT2006",
+      "name": "Industrial engg-XCT2006",
+      "file": "raw/syllabus/extracted/WILP Course Curriculam-2025/4th sem/Industrial engg-XCT2006.docx",
+      "type": "document",
+      "course_code": "engg-XCT2006"
+    }
+  ],
+  "courses": [
+    {
+      "course_code": "XCT3002",
+      "blueprint": "courses/XCT3002/blueprint/v1/blueprint.json",
+      "syllabus_source": "catalog/syllabi/branch-unknown/sem-unknown/XCT3002/syllabus/v1/syllabus.source.json"
+    }
+  ]
+}

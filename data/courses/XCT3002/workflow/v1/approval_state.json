@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "course_code": "XCT3002",
+  "states": [
+    "DRAFT",
+    "PPT_GENERATED",
+    "PPT_APPROVED",
+    "PPT_REJECTED",
+    "FULL_CONTENT_GENERATED"
+  ],
+  "current_state": "DRAFT",
+  "history": []
+}

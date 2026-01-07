@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "course_code": "XCT3002",
+  "mappings": [
+    {
+      "ref_id": "REF-COURSE-001",
+      "label": "Course-level material",
+      "source_path": null,
+      "level": "course",
+      "module_id": null,
+      "topic_id": null,
+      "notes": "Upload a PDF/ZIP and set level=course/module/topic; for module/topic specify module_id/topic_id."
+    }
+  ]
+}

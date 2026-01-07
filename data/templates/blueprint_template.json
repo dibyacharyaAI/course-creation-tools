@@ -1,0 +1,50 @@
+{
+  "course_identity": {
+    "course_code": "XCT3002",
+    "course_name": "Demo Course",
+    "program": "WILP",
+    "branch": "CS",
+    "semester_duration_weeks": 15,
+    "credits": {
+      "L": 3,
+      "T": 0,
+      "P": 0
+    },
+    "ncrf_level": 4,
+    "category": "Core"
+  },
+  "program_outcomes": [
+    "Understand core concepts."
+  ],
+  "course_objectives": [
+    "Learn to create blueprints."
+  ],
+  "clos": [
+    "CLO1: Create a module."
+  ],
+  "modules": [
+    {
+      "name": "Introduction to Blueprints",
+      "module_outcome": [
+        "Understand blueprint structure."
+      ],
+      "topics": [
+        {
+          "name": "JSON Structure",
+          "id": "t1"
+        },
+        {
+          "name": "Manifest Files",
+          "id": "t2"
+        }
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "time_distribution": {},
+  "reference_placeholders": {
+    "lecture_notes": [],
+    "reading_material": [],
+    "youtube_links": []
+  }
+}

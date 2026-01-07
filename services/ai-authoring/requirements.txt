@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+llama-index
+pydantic-settings
+aiokafka
+google-generativeai
+sqlalchemy
+psycopg2-binary
+pgvector
+python-pptx
+aiohttp
+reportlab>=4.0.0
