@@ -28,6 +28,19 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
+def has_initialized_kg(course_graph: Dict[str, Any] | None) -> bool:
+    if not course_graph:
+        return False
+    if not isinstance(course_graph, dict):
+        return False
+
+    children = course_graph.get("children") or []
+    for module in children:
+        if isinstance(module, dict) and module.get("children"):
+            return True
+
+    return False
+
 # --- Helper Pydantic Models ---
 class TopicJobResponse(BaseModel):
     id: int
@@ -119,7 +132,7 @@ async def update_blueprint(course_id: int, req: BlueprintUpdateRequest, db: Sess
         raise HTTPException(status_code=404, detail="Course not found")
         
     # LOCK: Prevent mutation if KG exists
-    if course.course_graph and course.course_graph.get("children"):
+    if has_initialized_kg(course.course_graph):
         logger.warning(f"Blocked blueprint update for Course {course_id}: KG already initialized.")
         raise HTTPException(
             status_code=409, 
@@ -156,7 +169,7 @@ async def trigger_generation_v2(course_id: int, req: GenerationRequest, db: Sess
         raise HTTPException(status_code=404, detail="Course not found")
         
     # Conditional Blueprint Update: Only if KG not valid
-    if not (course.course_graph and course.course_graph.get("children")):
+    if not has_initialized_kg(course.course_graph):
          course.blueprint = req.blueprint
     else:
          logger.info(f"Skipping blueprint update for Course {course_id} in generate_v2: KG exists.")
@@ -650,7 +663,5 @@ The AI Architect is requested to generate detailed slide content for the followi
 4. Generate strict JSON output for slides.
 """
     return {"prompt_text": prompt}
-
-
 
 
